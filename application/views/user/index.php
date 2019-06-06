@@ -4,7 +4,7 @@
 ?>
  <div class="row"> 
 
-    <div class="col-sm-6 col-sm-offset-3 form-box">
+    <div class="col-sm-6 col-sm-offset-3">
     	<form role="form" action="<?php echo base_url('login'); ?>" method="post" class="registration-form"  id="login">
 
     		<fieldset>
@@ -19,7 +19,7 @@
 								}
 							?>
                         </div>
-                        <div class="form-top-right">
+                        <div class="login-logo">
                             <img  src="<?php echo base_url('assets/icons/logo-ldpi.png'); ?>">
                         </div>
                     </div>

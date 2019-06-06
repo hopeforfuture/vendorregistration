@@ -10,7 +10,7 @@
                 }
             ?>
             
-            <div class="status-loop">
+            <div class="status-loop changePassInput">
                 <form id="password_change" action="<?php echo base_url('changepassword'); ?>"  method="post">
 					<ul>
 						<li> 

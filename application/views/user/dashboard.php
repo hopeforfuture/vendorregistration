@@ -1,3 +1,4 @@
+<div class="dash-vendor">
 <?php echo $header; ?>
 <div class="body-area">
         <?php
@@ -141,7 +142,7 @@
    </div>
 
    <?php echo $footer; ?>
-
+</div>
    <script type="text/javascript">
        $(document).ready(function(){
             var type = '<?php echo $f_type; ?>';

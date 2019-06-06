@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
-<body>
+<body class="vender-body">
 
 <div class="wraper">
     
@@ -17,14 +17,14 @@
     	<div class="top">
         	<h1>Vendor Dashboard </h1>
         </div>
-        <div class="row">
+        <div class="vendor-header">
     	<div class="header-left">
         	<h2>Vendor ID: <span><?php echo $sessdata['vendor_id']; ?></span></h2>
             <div class="welcome-text">Welcome... <?php echo $sessdata['company_name']; ?> </div>
         </div>
         <div class="header-right">
         	<div class="Service-contact">
-                <ul>
+                <ul class="login-btn">
                     <li>
                         <a href="<?php echo base_url('logout'); ?>">Log out</a>&nbsp;
                         <a href="<?php echo base_url('changepassword'); ?>">Change Password</a>&nbsp;

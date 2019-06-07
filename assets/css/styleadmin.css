@@ -21095,7 +21095,7 @@ dl li {
   flex-direction: row;
   padding-left: 0;
   padding-right: 0;
-  padding-top: 60px;
+  padding-top:0;
 }
 
 .page-body-wrapper.full-page-wrapper {
@@ -21138,10 +21138,10 @@ dl li {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 60px);
-  background: #ffffff;
+  background: #eaeaea;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  padding: 0;
+  padding:94px 0 0 0;
   width: 257px;
   z-index: 11;
   transition: width 0.25s ease, background 0.25s ease;
@@ -21154,6 +21154,7 @@ dl li {
   -ms-box-shadow: none;
   border-right: 1px solid #e3e3e3;
 }
+.sticky{ position: fixed; top: 100px;  }
 
 .sidebar .nav {
   overflow: hidden;
@@ -21365,16 +21366,15 @@ dl li {
 }
 
 .navbar .navbar-brand-wrapper {
-  background: #ffffff;
+  background: #2b3a41;
   border-bottom: 1px solid #e3e3e3;
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
   width: 257px;
-  /* Changed by manojit */
-  /*height: 60px;*/
   height: 94px;
+  margin-right: 18px;
   border-right: 1px solid #e3e3e3;
 }
 
@@ -21446,7 +21446,7 @@ dl li {
   color: #9b9b9b;
   padding-left: 1.062rem;
   padding-right: 1.062rem;
-  width: calc(100% - 257px);
+  width: calc(100% - 276px);
   /* changed by manojit */
  /* height: 60px;*/
  height: 94px;

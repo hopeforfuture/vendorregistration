@@ -1,0 +1,531 @@
+<!doctype html>
+ <html class="no-js" lang=""> 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Farm Need - Vendor Registration</title>
+    <meta name="description" content="Fram need admin">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="images/logo.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="assets/css/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+    <link href="assets/css/fullcalendar.min.css" rel="stylesheet" />
+
+   <style>
+    #weatherWidget .currentDesc {
+        color: #ffffff!important;
+    }
+        .traffic-chart {
+            min-height: 335px;
+        }
+        #flotPie1  {
+            height: 150px;
+        }
+        #flotPie1 td {
+            padding:3px;
+        }
+        #flotPie1 table {
+            top: 20px!important;
+            right: -10px!important;
+        }
+        .chart-container {
+            display: table;
+            min-width: 270px ;
+            text-align: left;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        #flotLine5  {
+             height: 105px;
+        }
+
+        #flotBarChart {
+            height: 150px;
+        }
+        #cellPaiChart{
+            height: 160px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="menu-icon fa fa-laptop"></i> Vendor </a>
+                    </li>
+
+                 </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header">
+            <div class="top-left">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="header-menu">
+                    <div class="header-left">
+                        <button class="search-trigger"><i class="fa fa-search"></i></button>
+                        <div class="form-inline">
+                            <form class="search-form">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                        </a>
+
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+
+                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+
+                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+        <!-- /#header -->
+        <!-- Content -->
+        <div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <!-- Widgets  -->
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-1">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-heading">Vendor</div>
+                                            <div class="stat-text">23569</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-2">
+                                        <i class="fa fa-clock-o fa-3"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-heading">Pending outlet</div>
+                                            <div class="stat-text">3435</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-3">
+                                        <i class="fa fa-credit-card-alt fa-3"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-heading">Pending payment</div>
+                                            <div class="stat-text">349</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <i class="fa fa-file-text-o"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-heading">Pending invoice</div>
+                                            <div class="stat-text">12</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Widgets -->
+ 
+                <div class="clearfix"></div>
+                <!-- Orders -->
+                <div class="orders">
+                    <div class="row">
+                        <div class="col-xl-8">
+                            <div class="card">
+                                 <div class="custom-tab">
+                                    <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <a class="vendor-title" id="custom-nav-vendor-tab">Vendor</a>
+                                             </div>
+                                        </nav>
+                                        <div class="tab-content pl-3 pt-3 pr-3" id="nav-tabContent">
+                                            <div class="tab-pane fade active show" id="custom-nav-vendor" role="tabpanel" aria-labelledby="custom-nav-vendor-tab">
+                                    <div class="table-stats order-table ov-h"> <!-- vendor table -->
+                                        <table class="table vendor-table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="serial" width="70">Sl No.</th>
+                                                    <th>ID</th>
+                                                    <th>Vendor Name</th>
+                                                    <th>Invoice</th>
+                                                    <th>Payment</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr onclick="showArea()">
+                                                    <td class="serial">1.</td>
+                                                    <td> #5469 </td>
+                                                    <td> <span class="name">Louis Stanley</span> </td>
+                                                    <td> <span class="product">iMax</span> </td>
+                                                    <td><span>Paid</span></td>
+                                                    <td>
+                                                       
+                                            <button type="button" class="badge badge-complete" data-toggle="modal" data-target="#smallmodal">Complete</button> 
+                                              <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <ul class="list-group list-group-flush text-left">
+                                                                            <li class="list-group-item">
+                                                                                <strong>Name:</strong> <span>Ranja paul</span>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <strong>Company:</strong> <span>Farm Need</span>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                 <strong>Address:</strong> <span>Shop No A, Shantiniketan Complex, Near Newtown Bridge, DLF 1, New Town, Kolkata</span> 
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                 <strong>Details:</strong> <span>Restaurants in Kolkata, Kolkata Restaurants, New Town restaurants, Best New Town restaurants, Rajarhat restaurants, Casual Dining in Kolkata, Casual Dining near me, Casual Dining in Rajarhat.</span> 
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                                        <button type="button" class="btn btn-primary">Confirm</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="inner-tr">
+                                                    <td colspan="50">
+                                                        <div id="open-details" class="open-details">
+                                                         <!-- start of custom-tab -->   
+                                   <div class="card-body innre-card-body">
+                                    <div class="custom-tab">
+                                        <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <a class="nav-item nav-link" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="false">Quotes</a>
+                                                <a class="nav-item nav-link active show" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="true">Invoice</a>
+                                                <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment</a>
+                                            </div>
+                                        </nav>
+                                        <div class="tab-content" id="nav-tabContent">
+                                            <div class="tab-pane fade" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" width="70">Sl No.</th>
+                                                            <th scope="col">Upload Status</th>
+                                                            <th scope="col">Payment Status</th>
+                                                         </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Mark</td>
+                                                            <td>Otto</td>
+                                                         </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>Jacob</td>
+                                                            <td>Thornton</td>
+                                                         </tr>
+                                                        <tr>
+                                                            <th scope="row">3</th>
+                                                            <td>Larry</td>
+                                                            <td>the Bird</td>
+                                                         </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade active show" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" width="70">Sl No.</th>
+                                                            <th scope="col">Invoice No</th>
+                                                            <th scope="col">Uploda Status</th>
+                                                            <th scope="col">Date</th>
+                                                         </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Mark</td>
+                                                            <td>Otto</td>
+                                                            <td>10/06/2019</td>
+                                                         </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>Jacob</td>
+                                                            <td>Thornton</td>
+                                                            <td>10/06/2019</td>
+                                                         </tr>
+                                                        <tr>
+                                                            <th scope="row">3</th>
+                                                            <td>Larry</td>
+                                                            <td>the Bird</td>
+                                                            <td>10/06/2019</td>
+                                                         </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="custom-nav-contact" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" width="70">Sl No.</th>
+                                                            <th scope="col">Payment date</th>
+                                                            <th scope="col">Payment Status</th>
+                                                         </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Mark</td>
+                                                            <td>payment</td>
+                                                         </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>Jacob</td>
+                                                            <td>payment</td>
+                                                         </tr>
+                                                        <tr>
+                                                            <th scope="row">3</th>
+                                                            <td>Larry</td>
+                                                            <td>payment</td>
+                                                         </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                 </div>
+                                <!-- end of custom-tab -->
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="serial">2.</td>
+                                                    <td> #5468 </td>
+                                                    <td>  <span class="name">Gregory Dixon</span> </td>
+                                                    <td> <span class="product">iPad</span> </td>
+                                                    <td><span>Paid</span></td>
+                                                    <td>
+                                                        <span class="badge badge-complete">Complete</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="serial">3.</td>
+                                                    <td> #5467 </td>
+                                                    <td>  <span class="name">Catherine Dixon</span> </td>
+                                                    <td> <span class="product">SSD</span> </td>
+                                                    <td><span>Unpaid</span></td>
+                                                    <td>
+                                                        <span class="badge badge-pending">Pending</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="serial">4.</td>
+                                                    <td> #5466 </td>
+                                                    <td>  <span class="name">Mary Silva</span> </td>
+                                                    <td> <span class="product">Magic Mouse</span> </td>
+                                                    <td><span>unpaid</span></td>
+                                                    <td>
+                                                        <span class="badge badge-pending">Pending</span>
+                                                    </td>
+                                                </tr>
+                                                <tr class=" pb-0">
+                                                    <td class="serial">5.</td>
+                                                    <td> #5465 </td>
+                                                    <td><span class="name">Johnny Stephens</span> </td>
+                                                    <td><span class="product">Monitor</span> </td>
+                                                    <td><span>Paid</span></td>
+                                                    <td><span class="badge badge-complete">Complete</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                         
+                                    </div> <!-- /.table-stats -->
+                                        </div>
+                                             
+                                             
+                                        </div>
+                                
+                                </div>
+                            </div> <!-- /.card -->
+                        </div>  <!-- /.col-lg-8 -->
+                        <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="calender-cont widget-calender">
+                                    <div id="calendar"></div>
+                                </div>
+                            </div>
+                        </div><!-- /.card -->
+                    </div>
+                    </div>
+                </div>
+                <!-- /.orders -->
+                <!-- Modal - Calendar - Add New Event -->
+                <div class="modal fade none-border" id="event-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title"><strong>Add New Event</strong></h4>
+                            </div>
+                            <div class="modal-body"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
+                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /#event-modal -->
+                <!-- Modal - Calendar - Add Category -->
+                <div class="modal fade none-border" id="add-category">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title"><strong>Add a category </strong></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="control-label">Category Name</label>
+                                            <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label">Choose Category Color</label>
+                                            <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
+                                                <option value="success">Success</option>
+                                                <option value="danger">Unpaid</option>
+                                                <option value="info">Info</option>
+                                                <option value="primary">Primary</option>
+                                                <option value="warning">Warning</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                               <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- /#add-category -->
+            </div>
+            <!-- .animated -->
+        </div>
+        <!-- /.content -->
+ 
+ 
+    <!-- /#right-panel -->
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.matchHeight.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/fullcalendar.min.js"></script>
+    <script src="assets/js/init/fullcalendar-init.js"></script>
+
+ 
+<script type="text/javascript">
+function showArea() {
+  var x = document.getElementById("open-details");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+</script>
+
+ 
+ 
+</body>
+</html>

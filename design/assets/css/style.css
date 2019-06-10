@@ -2385,7 +2385,7 @@ aside.left-panel { overflow: scroll; }
 #cellPaiChart #pieLabel0 { left: inherit !important; right: 20px !important; }
 .vendor-table tbody tr{ cursor: pointer; }
 .vendor-table tbody tr:hover td{ background: #fbfbfb;  }
-.open-details{ width: 100%; background:#fcf8e3; display: none; cursor: default; overflow: auto; border: 1px solid #e2e1dd; }
+.open-details,.open-details2{ width: 100%; background:#fcf8e3; display: none; cursor: default; overflow: auto; border: 1px solid #e2e1dd; }
 tr.inner-tr{ border:none; padding:0;   }
 tr.inner-tr > td{ padding: 0; border: none; }
 .card .innre-card-body{ padding: 0;  }

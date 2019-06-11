@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Farm Need - Vendor Registration</title>
+    <title><?php echo $title; ?></title>
     <meta name="description" content="Fram need admin">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="images/logo.png">
@@ -57,7 +57,7 @@
 		  <nav class="navbar navbar-expand-sm navbar-default">
 				<div id="main-menu" class="main-menu collapse navbar-collapse">
 				  <ul class="nav navbar-nav">
-					<li class="active"> <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a> </li>
+					<li class="active"> <a href="<?php echo base_url('admin/dashboard'); ?>"><i class="menu-icon fa fa-laptop"></i>Dashboard </a> </li>
 					<li> <a href="#"><i class="menu-icon fa fa-laptop"></i> Vendor </a> </li>
 				  </ul>
 				</div>
@@ -96,7 +96,7 @@
 							<a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a> 
 							<a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> 
 							<a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a> 
-							<a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a> 
+							<a class="nav-link" href="<?php echo base_url('admin/logout'); ?>"><i class="fa fa-power -off"></i>Logout</a> 
 						  </div>
 				      </div>
 					   
@@ -120,7 +120,7 @@
                   <div class="stat-content">
                 <div class="text-left dib">
                       <div class="stat-heading">Vendor</div>
-					<div class="stat-text"><span class="count">53</span></div>
+					<div class="stat-text"><span class="count"><?php echo $count_vendors; ?></span></div>
                     </div>
               </div>
                 </div>
@@ -134,8 +134,8 @@
                   <div class="stat-icon dib flat-color-2"> <i class="fa fa-clock-o fa-3"></i> </div>
                   <div class="stat-content">
                 <div class="text-left dib">
-                      <div class="stat-heading">Pending outlet</div>
-					<div class="stat-text"><span class="count">3435</span></div>
+                      <div class="stat-heading">Pending Quotation</div>
+					<div class="stat-text"><span class="count"><?php echo $count_p_quotes; ?></span></div>
                     </div>
               </div>
                 </div>
@@ -149,8 +149,8 @@
                   <div class="stat-icon dib flat-color-3"> <i class="fa fa-credit-card-alt fa-3"></i> </div>
                   <div class="stat-content">
                 <div class="text-left dib">
-                      <div class="stat-heading">Pending payment</div>
-					<div class="stat-text"><span class="count">349</span></div>
+                      <div class="stat-heading">Pending Payment</div>
+					<div class="stat-text"><span class="count"><?php echo $pending_payment; ?></span></div>
                     </div>
               </div>
                 </div>
@@ -164,8 +164,8 @@
                   <div class="stat-icon dib flat-color-4"> <i class="fa fa-file-text-o"></i> </div>
                   <div class="stat-content">
                 <div class="text-left dib">
-                      <div class="stat-heading">Pending invoice</div>
-					<div class="stat-text"><span class="count">12</span></div>
+                      <div class="stat-heading">Pending Invoice</div>
+					<div class="stat-text"><span class="count"><?php echo $count_p_invoice; ?></span></div>
                     </div>
               </div>
                 </div>

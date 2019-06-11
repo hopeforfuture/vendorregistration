@@ -64,6 +64,7 @@
                                         </div>
                                     </h5>
                                     </div>
+									
                                   <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
       data-parent="#accordionExample">
                                       <div class="card-body">
@@ -72,8 +73,15 @@
                                           <div class="card-body innre-card-body">
                                           <div class="custom-tab">
                                               <nav>
-                                              <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a class="nav-item nav-link" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="false">Quotes</a> <a class="nav-item nav-link active show" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="true">Invoice</a> <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment</a> </div>
-                                            </nav>
+												  <div class="nav nav-tabs" id="nav-tab" role="tablist"> 
+												  <a class="nav-item nav-link" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="false">Quotes
+												  </a> 
+												  <a class="nav-item nav-link active show" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="true">Invoice
+												  </a> 
+												  <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment
+												  </a> 
+												  </div>
+                                              </nav>
                                               <div class="tab-content" id="nav-tabContent">
                                               <div class="tab-pane fade" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
                                                   <table class="table">

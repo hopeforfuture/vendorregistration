@@ -19,9 +19,10 @@ class Admin extends CI_Controller
 		$title = 'Administrator Login';
 
 		$segment_arr =  $this->uri->segment_array();
-		$segment_count = count($this->uri->segment_array());
+		$segment_count = count($segment_arr);
 		$seg_name = '';
-
+		
+	
 		/* When page is loaded for first time */
 		if($segment_count == 1)
 		{
@@ -29,10 +30,10 @@ class Admin extends CI_Controller
 		}
 		else
 		{
-			$seg_name = $segment_arr[1];
+			$seg_name = $segment_arr[2];
 			if($seg_name == 'dashboard')
 			{
-				$title = 'Administrator dashboard';
+				$title = 'Administrator Dashboard';
 			}
 		}
 
@@ -45,6 +46,35 @@ class Admin extends CI_Controller
 			{
 				$seesiondata['last_login'] = date('F j, Y, g:i a', $seesiondata['last_login']);
 			}
+			
+			/* Total no of vendors */
+			$cond = array('vendor_status'=>'1');
+			$this->mm->setTable('vendor_info');
+			$this->data['count_vendors'] = $this->mm->countRows($cond);
+			$this->mm->unsetTable();
+			
+			$cond = array();
+			/* Total no of pending quotes */
+			$cond = array('f_type'=>'Q', 'f_status'=>'P', 'active_status'=>'1');
+			$this->mm->setTable('vendor_files');
+			$this->data['count_p_quotes'] = $this->mm->countRows($cond);
+			$this->mm->unsetTable();
+			
+			$cond = array();
+			
+			/* Total no pending payment */
+			$cond = array('f_type'=>'I', 'paid_status'=>'0', 'active_status'=>'1');
+			$this->mm->setTable('vendor_files');
+			$this->data['pending_payment'] = $this->mm->countRows($cond);
+			$this->mm->unsetTable();
+			
+			$cond = array();
+			/* Total no of pending invoice */
+			$cond = array('f_type'=>'I', 'f_status'=>'P', 'active_status'=>'1');
+			$this->mm->setTable('vendor_files');
+			$this->data['count_p_invoice'] = $this->mm->countRows($cond);
+			$this->mm->unsetTable();
+			
 			$this->data['sessdata'] = $seesiondata;
 			$this->data['header'] = $this->load->view('templates/admin/header', $this->data, true);
 			$this->data['footer'] = $this->load->view('templates/admin/footer', '', true);
@@ -109,9 +139,53 @@ class Admin extends CI_Controller
 		{
 			redirect(base_url('admin'));
 		}
+		$venddata = array();
+		$invdata = array();
+		$quotesdata = array();
+		$paymentdata = array();
+		//$this->data['var'] = 'VENDOR UPLOADS LIST';
+		//$this->data['fileslist'] = $this->inv->fetchallfiles(array(), array('field'=>'f_id', 'type'=>'DESC'));
+		//echo "<pre>";
+		//print_r($this->vendormodel->vendorlistdetails());
+		//echo "</pre>";
+		//die;
+		$vendor_keys = array();
+		$vendor_names = array();
 		
-		$this->data['var'] = 'VENDOR UPLOADS LIST';
-		$this->data['fileslist'] = $this->inv->fetchallfiles(array(), array('field'=>'f_id', 'type'=>'DESC'));
+		$vendorfiles = $this->vendormodel->vendorlistdetails();
+		
+		if(!empty($vendorfiles))
+		{
+			//$vendor_keys = array_column($vendorfiles, 'vendor_id');
+			//$vendor_names = array_column($vendorfiles, 'company_name');
+			
+			foreach($vendorfiles as $vef)
+			{
+				if(!empty($vef['f_name']))
+				{
+					$vendor_id = $vef['vendor_id'];
+					switch($vef['f_type'])
+					{
+						case 'I':
+							if($vef['paid_status'] == 1)
+							{
+								$venddata[$vendor_id]['I']['P'][] = (
+									array(
+									   'u_status' => $vef['f_status']
+									)
+								);
+							}
+							else
+							{
+							}
+						break;
+					}
+				}
+			}
+		}
+		echo "<pre>";
+		print_r($venddata);
+		die;
 		$this->load->view('admin/home', $this->data);
 	}
 

@@ -1,290 +1,494 @@
 <?php echo $header; ?>
-  <div align="center">
-    <p style="color:red; font-weight: bold;">Administrator Dashboard</p>
-  </div>
-
-  <div>
-    <p>Employee ID: <span style="color: red; font-weight: bold;"><?php echo $sessdata['u_id']; ?></span></p>
-    <p>Employee Name: <span style="color: red; font-weight: bold;"><?php echo $sessdata['u_name']; ?></span></p>
-  </div>
-  <div class="row">
-
-            <div class="col-lg-12 grid-margin stretch-card">
+<!-- Orders -->
+    <div class="orders">
+          <div class="row">
+        <div class="col-xl-8">
               <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title"><?php echo $var; ?></h4>
-                  <!--<p class="card-description">
-                    Add class <code>.table-striped</code>
-                  </p>-->
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
+            <div class="custom-tab">
+                  <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a class="vendor-title" id="custom-nav-vendor-tab">Vendor</a> </div>
+              </nav>
+                  <div class="tab-content pl-3 pt-3 pr-3 main-qt-table" id="nav-tabContent">
+                <div class="tab-pane fade active show" id="custom-nav-vendor" role="tabpanel" aria-labelledby="custom-nav-vendor-tab">
+                      <div class="table-stats order-table ov-h"> <!-- vendor table -->
+                    <table class="table vendor-table">
+                          <thead>
                         <tr>
-                          <th>Serial No</th>
-                          <th>Vendor Name</th>
-                          <th>Upload Type</th>
-                          <th>Upload Status</th>
-                          <th>Payment Status</th>
-                          <th>Cause for Rejection</th>
-                          <th>Download</th>
-                          <th>Action</th>
-                        </tr>
+                              <th class="serial" width="10%">Sl No.</th>
+                              <th width="10%">ID</th>
+                              <th width="30%">Vendor Name</th>
+                              <th width="15%">Invoice</th>
+                              <th width="15%">Payment</th>
+                              <th width="20%">Status</th>
+                            </tr>
                       </thead>
-                      <tbody>
-                        <?php
-                          $si_no = 1;
-                          $upload_type = '';
-                          $upload_status = '';
-                          $payment_status = '';
-                          $panel_id = '';
-                          if(count($fileslist) > 0)
-                          {
-
-                            foreach($fileslist as $fl)
-                            {
-
-                                $panel_id = "panel_".$fl->f_id;
-
-                                if($fl->f_type == 'I')
-                                {
-                                    $upload_type = 'Invoice';
-                                }
-                                elseif($fl->f_type == 'Q')
-                                {
-                                    $upload_type = 'Quotation';
-                                }
-
-                                if($fl->f_status == 'A')
-                                {
-                                   $upload_status = 'Accepted';
-                                }
-                                elseif($fl->f_status == 'P')
-                                {
-                                   $upload_status = 'Pending';
-
-                                }
-                                elseif($fl->f_status == 'R')
-                                {
-                                   $upload_status = 'Rejected';
-                                }
-                                if($fl->paid_status == 0)
-                                {
-                                   $payment_status = 'Unpaid';
-                                }
-                                elseif($fl->paid_status == 1)
-                                {
-                                   $payment_status = 'Paid';
-                                }
-                                elseif($fl->paid_status == 'NA')
-                                {
-                                   $payment_status = 'Not Applicable';
-                                }
-
-                                $timestamp = $fl->created_at;
-                        ?>
-                        <tr>
-                          <td class="py-1"><?php echo $si_no; ?></td>
-                          <td><?php echo ucwords($fl->company_name); ?></td>
-                          <td><?php echo $upload_type; ?></td>
-                          <td><?php echo $upload_status; ?></td>
-                          <td><?php echo $payment_status; ?></td>
-                          <td><?php echo ucwords($fl->f_reject_reason); ?></td>
-                          <td>
-                            <a href="<?php echo base_url('download/'.base64_encode($fl->f_name)); ?>">Download</a>
-                          </td>
-                          <td valign="top">
-                            <?php
-                            if($fl->f_status == 'P')
-                            {
-                            ?>
-                               <a href="Javascript:void(0);"  class="accept_file" id="accept_<?php echo $fl->f_id; ?>">Accept</a>&nbsp;
-                               <a class="rejectlink" id="reject_link_<?php echo $fl->f_id; ?>"  href="Javascript:void(0);">Reject</a>&nbsp;
-                               <div id="<?php echo $panel_id ?>" style="display: none;">
-                                 Cause for Rejection:<textarea rows="10" cols="30" name="reject_cause" id="reject_txt_<?php echo $fl->f_id; ?>"></textarea><br/>
-                                 <button class="btnsubmit" type="submit" id="btn_submit_<?php echo $fl->f_id; ?>">Submit</button>&nbsp;
-                                 <button class="btncancel" type="button" id="btn_cancel_<?php echo $fl->f_id; ?>" >cancel</button>&nbsp;
-                               </div>
-                            <?php
-                            }
-
-                            if($fl->f_status == 'A' && $fl->f_type == 'I' && $fl->paid_status == 0)
-                            {
-                            ?>
-                              <a href="Javascript: void(0);" class="payment" id="paid_<?php echo $fl->f_id; ?>">Paid</a>
-                              <div style="display: none;" id="pay_panel_<?php echo $fl->f_id; ?>">
-                                <table>
-                                  <tr>
-                                    <td>Payment Due Date</td>
-                                    <td>:</td>
-                                    <td>
-                                      <input type="date" id="payment_due_date_<?php echo $fl->f_id; ?>" class="due_date_class">
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                        <button type="submit" class="btnpay" id="btn_pay_<?php echo $fl->f_id; ?>">Next</button>
-                                      </td>
-                                      <td>
-                                        <button type="button" class="btnpaycancel" id="btn_pay_cancel_<?php echo $fl->f_id; ?>">Cancel</button>
-                                      </td>
-                                  </tr>
-                                </table>
-                              </div>
-                            <?php
-                            }
-
-                            ?>
-                          </td>
-                        </tr>
-
-                    <?php 
-                        $si_no++;
-                      } 
-
-                  }
-
-                  else
-                  {
-                  ?>
-                      <tr>
-                        <td colspan="8" align="center">
-                          <p style="color: red; font-weight: bold;">No record found</p>
-                        </td>
-                      </tr>
-                  <?php
-                  }
-
-                    ?>
-                       
+                          <tbody>
+                        <tr class="inner-tr">
+                              <td colspan="50"><div class="accordion" id="accordionExample">
+                                  <div class="card z-depth-0 bordered">
+                                  <div class="card-header accordion-header" id="headingOne">
+                                      <h5 class="mb-0">
+                                      <div class="btn btn-link inner-colaps" data-toggle="collapse" data-target="#collapseOne"
+          aria-expanded="true" aria-controls="collapseOne">
+                                          <table width="100%">
+                                          <tr>
+                                              <td width="10%" class="serial">1.</td>
+                                              <td width="10%"> #5469 </td>
+                                              <td width="30%"><span class="name">Louis Stanley</span></td>
+                                              <td width="15%"><span class="product">iMax</span></td>
+                                              <td width="15%"><span>Paid</span></td>
+                                              <td width="20%"><button type="button" class="badge badge-complete" data-toggle="modal" data-target="#smallmodal">Complete</button>
+                                              <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog modal-lg" role="document">
+                                                  <div class="modal-content">
+                                                      <div class="modal-header">
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                                                    </div>
+                                                      <div class="modal-body">
+                                                      <ul class="list-group list-group-flush text-left">
+                                                          <li class="list-group-item"> <strong>Name:</strong> <span>Ranja paul</span> </li>
+                                                          <li class="list-group-item"> <strong>Company:</strong> <span>Farm Need</span> </li>
+                                                          <li class="list-group-item"> <strong>Address:</strong> <span>Shop No A, Shantiniketan Complex, Near Newtown Bridge, DLF 1, New Town, Kolkata</span> </li>
+                                                          <li class="list-group-item"> <strong>Details:</strong> <span>Restaurants in Kolkata, Kolkata Restaurants, New Town restaurants, Best New Town restaurants, Rajarhat restaurants, Casual Dining in Kolkata, Casual Dining near me, Casual Dining in Rajarhat.</span> </li>
+                                                        </ul>
+                                                    </div>
+                                                      <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                      <button type="button" class="btn btn-primary">Confirm</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div></td>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </h5>
+                                    </div>
+                                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+      data-parent="#accordionExample">
+                                      <div class="card-body">
+                                      <div class="open-details"> 
+                                          <!-- start of custom-tab -->
+                                          <div class="card-body innre-card-body">
+                                          <div class="custom-tab">
+                                              <nav>
+                                              <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a class="nav-item nav-link" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="false">Quotes</a> <a class="nav-item nav-link active show" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="true">Invoice</a> <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment</a> </div>
+                                            </nav>
+                                              <div class="tab-content" id="nav-tabContent">
+                                              <div class="tab-pane fade" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
+                                                  <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                      <th scope="col" width="70">Sl No.</th>
+                                                      <th scope="col">Upload Status</th>
+                                                      <th scope="col">Payment Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Mark</td>
+                                                      <td>Otto</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">2</th>
+                                                      <td>Jacob</td>
+                                                      <td>Thornton</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">3</th>
+                                                      <td>Larry</td>
+                                                      <td>the Bird</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                              <div class="tab-pane fade active show" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
+                                                  <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                      <th scope="col" width="70">Sl No.</th>
+                                                      <th scope="col">Invoice No</th>
+                                                      <th scope="col">Uploda Status</th>
+                                                      <th scope="col">Date</th>
+                                                    </tr>
+                                                    </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Mark a as </td>
+                                                      <td>Otto</td>
+                                                      <td>10/06/2019</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">2</th>
+                                                      <td>Jacob</td>
+                                                      <td>Thornton</td>
+                                                      <td>10/06/2019</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">3</th>
+                                                      <td>Larry</td>
+                                                      <td>the Bird</td>
+                                                      <td>10/06/2019</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                              <div class="tab-pane fade" id="custom-nav-contact" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
+                                                  <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                      <th scope="col" width="70">Sl No.</th>
+                                                      <th scope="col">Payment date</th>
+                                                      <th scope="col">Payment Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Mark</td>
+                                                      <td>payment</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">2</th>
+                                                      <td>Jacob</td>
+                                                      <td>payment</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">3</th>
+                                                      <td>Larry</td>
+                                                      <td>payment</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                          <!-- end of custom-tab --> 
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                  <div class="card z-depth-0 bordered">
+                                  <div class="card-header accordion-header" id="headingTwo">
+                                      <h5 class="mb-0">
+                                      <div class="btn btn-link collapsed inner-colaps" data-toggle="collapse"
+          data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                          <table width="100%">
+                                          <tbody>
+                                              <tr>
+                                              <td width="10%" class="serial">1.</td>
+                                              <td width="10%"> #5469 </td>
+                                              <td width="30%"><span class="name">Louis Stanley</span></td>
+                                              <td width="15%"><span class="product">iMax</span></td>
+                                              <td width="15%"><span>Paid</span></td>
+                                              <td width="20%"><button type="button" class="badge badge-complete" data-toggle="modal" data-target="#smallmodal">Complete</button>
+                                                  <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog modal-lg" role="document">
+                                                      <div class="modal-content">
+                                                      <div class="modal-header">
+                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                                                        </div>
+                                                      <div class="modal-body">
+                                                          <ul class="list-group list-group-flush text-left">
+                                                          <li class="list-group-item"> <strong>Name:</strong> <span>Ranja paul</span> </li>
+                                                          <li class="list-group-item"> <strong>Company:</strong> <span>Farm Need</span> </li>
+                                                          <li class="list-group-item"> <strong>Address:</strong> <span>Shop No A, Shantiniketan Complex, Near Newtown Bridge, DLF 1, New Town, Kolkata</span> </li>
+                                                          <li class="list-group-item"> <strong>Details:</strong> <span>Restaurants in Kolkata, Kolkata Restaurants, New Town restaurants, Best New Town restaurants, Rajarhat restaurants, Casual Dining in Kolkata, Casual Dining near me, Casual Dining in Rajarhat.</span> </li>
+                                                        </ul>
+                                                        </div>
+                                                      <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                          <button type="button" class="btn btn-primary">Confirm</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </h5>
+                                    </div>
+                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                      <div class="card-body">
+                                      <div class="open-details"> 
+                                          <!-- start of custom-tab -->
+                                          <div class="card-body innre-card-body">
+                                          <div class="custom-tab">
+                                              <nav>
+                                              <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a class="nav-item nav-link" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="false">Quotes</a> <a class="nav-item nav-link active show" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="true">Invoice</a> <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment</a> </div>
+                                            </nav>
+                                              <div class="tab-content" id="nav-tabContent">
+                                              <div class="tab-pane fade" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
+                                                  <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                      <th scope="col" width="70">Sl No.</th>
+                                                      <th scope="col">Upload Status</th>
+                                                      <th scope="col">Payment Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Mark</td>
+                                                      <td>Otto</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">2</th>
+                                                      <td>Jacob</td>
+                                                      <td>Thornton</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">3</th>
+                                                      <td>Larry</td>
+                                                      <td>the Bird</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                              <div class="tab-pane fade active show" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
+                                                  <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                      <th scope="col" width="70">Sl No.</th>
+                                                      <th scope="col">Invoice No</th>
+                                                      <th scope="col">Uploda Status</th>
+                                                      <th scope="col">Date</th>
+                                                    </tr>
+                                                    </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Mark a as </td>
+                                                      <td>Otto</td>
+                                                      <td>10/06/2019</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">2</th>
+                                                      <td>Jacob</td>
+                                                      <td>Thornton</td>
+                                                      <td>10/06/2019</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">3</th>
+                                                      <td>Larry</td>
+                                                      <td>the Bird</td>
+                                                      <td>10/06/2019</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                              <div class="tab-pane fade" id="custom-nav-contact" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
+                                                  <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                      <th scope="col" width="70">Sl No.</th>
+                                                      <th scope="col">Payment date</th>
+                                                      <th scope="col">Payment Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Mark</td>
+                                                      <td>payment</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">2</th>
+                                                      <td>Jacob</td>
+                                                      <td>payment</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">3</th>
+                                                      <td>Larry</td>
+                                                      <td>payment</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                          <!-- end of custom-tab --> 
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                  <div class="card z-depth-0 bordered">
+                                  <div class="card-header accordion-header" id="headingThree">
+                                      <h5 class="mb-0">
+                                      <div class="btn btn-link collapsed inner-colaps" data-toggle="collapse"
+          data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                          <table width="100%">
+                                          <tbody>
+                                              <tr>
+                                              <td width="10%" class="serial">1.</td>
+                                              <td width="10%"> #5469 </td>
+                                              <td width="30%"><span class="name">Louis Stanley</span></td>
+                                              <td width="15%"><span class="product">iMax</span></td>
+                                              <td width="15%"><span>Paid</span></td>
+                                              <td width="20%"><button type="button" class="badge badge-complete" data-toggle="modal" data-target="#smallmodal">Complete</button>
+                                                  <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog modal-lg" role="document">
+                                                      <div class="modal-content">
+                                                      <div class="modal-header">
+                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                                                        </div>
+                                                      <div class="modal-body">
+                                                          <ul class="list-group list-group-flush text-left">
+                                                          <li class="list-group-item"> <strong>Name:</strong> <span>Ranja paul</span> </li>
+                                                          <li class="list-group-item"> <strong>Company:</strong> <span>Farm Need</span> </li>
+                                                          <li class="list-group-item"> <strong>Address:</strong> <span>Shop No A, Shantiniketan Complex, Near Newtown Bridge, DLF 1, New Town, Kolkata</span> </li>
+                                                          <li class="list-group-item"> <strong>Details:</strong> <span>Restaurants in Kolkata, Kolkata Restaurants, New Town restaurants, Best New Town restaurants, Rajarhat restaurants, Casual Dining in Kolkata, Casual Dining near me, Casual Dining in Rajarhat.</span> </li>
+                                                        </ul>
+                                                        </div>
+                                                      <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                          <button type="button" class="btn btn-primary">Confirm</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </h5>
+                                    </div>
+                                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                      <div class="card-body">
+                                      <div class="open-details"> 
+                                          <!-- start of custom-tab -->
+                                          <div class="card-body innre-card-body">
+                                          <div class="custom-tab">
+                                              <nav>
+                                              <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a class="nav-item nav-link" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="false">Quotes</a> <a class="nav-item nav-link active show" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="true">Invoice</a> <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment</a> </div>
+                                            </nav>
+                                              <div class="tab-content" id="nav-tabContent">
+                                              <div class="tab-pane fade" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
+                                                  <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                      <th scope="col" width="70">Sl No.</th>
+                                                      <th scope="col">Upload Status</th>
+                                                      <th scope="col">Payment Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Mark</td>
+                                                      <td>Otto</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">2</th>
+                                                      <td>Jacob</td>
+                                                      <td>Thornton</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">3</th>
+                                                      <td>Larry</td>
+                                                      <td>the Bird</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                              <div class="tab-pane fade active show" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
+                                                  <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                      <th scope="col" width="70">Sl No.</th>
+                                                      <th scope="col">Invoice No</th>
+                                                      <th scope="col">Uploda Status</th>
+                                                      <th scope="col">Date</th>
+                                                    </tr>
+                                                    </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Mark a as </td>
+                                                      <td>Otto</td>
+                                                      <td>10/06/2019</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">2</th>
+                                                      <td>Jacob</td>
+                                                      <td>Thornton</td>
+                                                      <td>10/06/2019</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">3</th>
+                                                      <td>Larry</td>
+                                                      <td>the Bird</td>
+                                                      <td>10/06/2019</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                              <div class="tab-pane fade" id="custom-nav-contact" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
+                                                  <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                      <th scope="col" width="70">Sl No.</th>
+                                                      <th scope="col">Payment date</th>
+                                                      <th scope="col">Payment Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Mark</td>
+                                                      <td>payment</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">2</th>
+                                                      <td>Jacob</td>
+                                                      <td>payment</td>
+                                                    </tr>
+                                                      <tr>
+                                                      <th scope="row">3</th>
+                                                      <td>Larry</td>
+                                                      <td>payment</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                          <!-- end of custom-tab --> 
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div></td>
+                            </tr>
                       </tbody>
-                    </table>
+                        </table>
                   </div>
-                </div>
+                      <!-- /.table-stats --> 
+                    </div>
               </div>
-            </div>
-
+                </div>
           </div>
+              <!-- /.card --> 
+            </div>
+        <!-- /.col-lg-8 -->
+        <div class="col-xl-4">
+              <div class="card">
+            <div class="card-body">
+                  <div class="calender-cont widget-calender">
+                <div id="calendar"></div>
+              </div>
+                </div>
+          </div>
+              <!-- /.card --> 
+            </div>
+      </div>
+        </div>
+    <!-- /.orders --> 
 <?php echo $footer; ?>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-
-    /* reject panel show and hide */
-    $("body").on("click",".rejectlink", function(){
-       var link_id = $(this).attr('id');
-       var file_id = link_id.split('_').pop();
-       var panel_id = "#panel_"+file_id;
-       $(panel_id).show();
-    });
-
-    $("body").on("click", ".btncancel", function(){
-       var file_id = $(this).attr('id').split('_').pop();
-       var panel_id = "#panel_"+file_id;
-       $(panel_id).hide();
-    });
-    /* End */
-
-    /* File reject section */
-    $("body").on("click", ".btnsubmit", function(){
-
-       var file_id = $(this).attr('id').split('_').pop();
-       var reject_text = $("#reject_txt_"+file_id).val().trim();
-
-       var targeturl = '<?php echo base_url('ajax/updatefilestatus'); ?>';
-       var data = {file_id: file_id, reject_cause: reject_text, status: 'R'};
-
-       $.ajax({
-
-          type: "POST",
-          url: targeturl,
-          data: data,
-          success: function(response)
-          {
-             window.location.href = '<?php echo base_url("admin/dashboard"); ?>';
-          }
-
-       });
-
-    });
-    /* End */
-
-    /* File accept section */
-    $("body").on("click", ".accept_file", function(e){
-        var confirm_status = confirm('Confirm Accept?');
-        if(confirm_status == false)
-        {
-          return false;
-        }
-        var file_id = $(this).attr('id').split('_').pop();
-        var reject_text = '';
-
-        var targeturl = '<?php echo base_url('ajax/updatefilestatus'); ?>';
-        var data = {file_id: file_id, reject_cause: reject_text, status: 'A'};
-
-
-        $.ajax({
-
-            type: "POST",
-            url: targeturl,
-            data: data,
-            success: function(response)
-            {
-               window.location.href = '<?php echo base_url("admin/dashboard"); ?>';
-            }
-
-         });
-
-    });
-    /* End */
-
-    /* Due date panel show hide */
-    $("body").on("click", ".payment", function(){
-       var file_id = $(this).attr('id').split('_').pop();
-       $("#pay_panel_"+file_id).show();
-
-    });
-
-    $("body").on("click", ".btnpaycancel", function(){
-        var file_id = $(this).attr('id').split('_').pop();
-        $("#payment_due_date_" + file_id).val('');
-       $("#pay_panel_"+file_id).hide();
-    });
-    /* End */
-
-
-    /*  Due date update section */
-    $("body").on("click", ".btnpay", function(){
-
-      var file_id = $(this).attr('id').split('_').pop();
-      var due_date = $("#payment_due_date_" + file_id).val();
-
-      if(due_date == '')
-      {
-        alert('Due date required.');
-        return false;
-      }
-      else
-      {
-          var targeturl = '<?php echo base_url('ajax/updatepaidstatus'); ?>';
-          var data = {file_id: file_id, due_date: due_date};
-
-
-          $.ajax({
-
-              type: "POST",
-              url: targeturl,
-              data: data,
-              success: function(response)
-              {
-                 window.location.href = '<?php echo base_url("admin/dashboard"); ?>';
-              }
-
-           });
-      }
-
-    });
-    /* End */
-
-
-  });
-</script>

@@ -72,8 +72,8 @@
 		<header id="header" class="header">
 			  <div class="top-left">
 				  <div class="navbar-header"> 
-					  <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a> 
-					  <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a> 
+					  <a class="navbar-brand" href="./"><img src="<?php echo base_url(); ?>assets/images/logo.png" alt="Logo"></a> 
+					  <a class="navbar-brand hidden" href="./"><img src="<?php echo base_url(); ?>assets/images/logo2.png" alt="Logo"></a> 
 					  <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a> 
 				  </div>
 			  </div>
@@ -90,7 +90,7 @@
 					   </div>
 					   
 					  <div class="user-area dropdown float-right"> 
-						  <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 	<img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar"> 
+						  <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 	<img class="user-avatar rounded-circle" src="<?php echo base_url(); ?>assets/images/admin.jpg" alt="User Avatar"> 
 						  </a>
 						  <div class="user-menu dropdown-menu"> 
 							<a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a> 
@@ -108,4 +108,71 @@
 	 <!-- Content -->
 	 <div class="content">
 		<!-- Animated -->
-       <div class="animated fadeIn"> 
+       <div class="animated fadeIn">
+	   
+		<!-- Widgets  -->
+    <div class="row">
+          <div class="col-lg-3 col-md-6">
+        <div class="card">
+              <div class="card-body">
+            <div class="stat-widget-five">
+                  <div class="stat-icon dib flat-color-1"> <i class="fa fa-user"></i> </div>
+                  <div class="stat-content">
+                <div class="text-left dib">
+                      <div class="stat-heading">Vendor</div>
+					<div class="stat-text"><span class="count">53</span></div>
+                    </div>
+              </div>
+                </div>
+          </div>
+            </div>
+      </div>
+          <div class="col-lg-3 col-md-6">
+        <div class="card">
+              <div class="card-body">
+            <div class="stat-widget-five">
+                  <div class="stat-icon dib flat-color-2"> <i class="fa fa-clock-o fa-3"></i> </div>
+                  <div class="stat-content">
+                <div class="text-left dib">
+                      <div class="stat-heading">Pending outlet</div>
+					<div class="stat-text"><span class="count">3435</span></div>
+                    </div>
+              </div>
+                </div>
+          </div>
+            </div>
+      </div>
+          <div class="col-lg-3 col-md-6">
+        <div class="card">
+              <div class="card-body">
+            <div class="stat-widget-five">
+                  <div class="stat-icon dib flat-color-3"> <i class="fa fa-credit-card-alt fa-3"></i> </div>
+                  <div class="stat-content">
+                <div class="text-left dib">
+                      <div class="stat-heading">Pending payment</div>
+					<div class="stat-text"><span class="count">349</span></div>
+                    </div>
+              </div>
+                </div>
+          </div>
+            </div>
+      </div>
+          <div class="col-lg-3 col-md-6">
+        <div class="card">
+              <div class="card-body">
+            <div class="stat-widget-five">
+                  <div class="stat-icon dib flat-color-4"> <i class="fa fa-file-text-o"></i> </div>
+                  <div class="stat-content">
+                <div class="text-left dib">
+                      <div class="stat-heading">Pending invoice</div>
+					<div class="stat-text"><span class="count">12</span></div>
+                    </div>
+              </div>
+                </div>
+          </div>
+            </div>
+      </div>
+        </div>
+    <!-- /Widgets -->
+	
+	<div class="clearfix"></div>

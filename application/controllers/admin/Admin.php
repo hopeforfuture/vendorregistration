@@ -149,7 +149,7 @@ class Admin extends CI_Controller
 		$inv_count = 1;
 		$payment_count = 1;
 		$vendor_id = '';
-		$vendcount = 0;
+		//$vendcount = 0;
 		
 		$vendorfiles = $this->vendormodel->vendorlistdetails();
 		
@@ -160,15 +160,9 @@ class Admin extends CI_Controller
 			$vendor_names = array_column($vendorfiles, 'company_name');
 			$vendor_id = current($vendor_key_unique);
 			
-			/*echo "<pre>";
-			print_r($vendor_key_unique);
-			echo "</pre>";
-			die;*/
-			
 			foreach($vendorfiles as $vef)
 			{
 				
-					//$vendor_id = $vef['vendor_id'];
 					if($vendor_id != $vef['vendor_id'])
 					{
 						$inv_count = 1;
@@ -176,6 +170,13 @@ class Admin extends CI_Controller
 						$quote_count = 1;
 						$vendor_id = next($vendor_key_unique);
 					}
+					
+					$venddata[$vendor_id] = array(
+						'name' => ucwords($vef['company_name']),
+						//'id'   => $vef['vendor_id']
+					);
+					
+					
 					
 					switch($vef['f_type'])
 					{
@@ -211,8 +212,6 @@ class Admin extends CI_Controller
 										'vendor_id' => $vef['vendor_id'],
 										'type'  => $vef['f_type'],
 										'paid' => $vef['paid_status'],
-										//'reject_reason' => $vef['f_reject_reason'],
-										//'duedate' => $vef['payment_due_date'],
 										'created' => $vef['created_at']
 									)
 								);
@@ -230,9 +229,7 @@ class Admin extends CI_Controller
 										'vendor_id' => $vef['vendor_id'],
 										'type'  => $vef['f_type'],
 										'quote_status' => $vef['f_status'],
-										//'paid' => $vef['paid_status'],
 										'reject_reason' => $vef['f_reject_reason'],
-										//'duedate' => $vef['payment_due_date'],
 										'created' => $vef['created_at']
 									)
 							);
@@ -245,18 +242,11 @@ class Admin extends CI_Controller
 				}
 			
 		}
-		echo "<pre>";
-		print_r($invdata);
-		echo "</pre>";
-		echo "-----";
-		echo "<pre>";
-		print_r($paymentdata);
-		echo "</pre>";
-		echo "-----";
-		echo "<pre>";
-		print_r($quotesdata);
-		echo "</pre>";
-		die;
+		
+		$this->data['venddata'] = $venddata;
+		$this->data['invoice'] = $invdata;
+		$this->data['payments'] = $paymentdata;
+		$this->data['quotes'] = $quotesdata;
 		$this->load->view('admin/home', $this->data);
 	}
 

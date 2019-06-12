@@ -15,28 +15,52 @@
                           <thead>
                         <tr>
                               <th class="serial" width="10%">Sl No.</th>
-                              <th width="10%">ID</th>
+                              <th width="10%">SI NO.</th>
                               <th width="30%">Vendor Name</th>
-                              <th width="15%">Invoice</th>
-                              <th width="15%">Payment</th>
+                              <!--<th width="15%">Invoice</th>
+                              <th width="15%">Payment</th>-->
                               <th width="20%">Status</th>
                             </tr>
                       </thead>
                           <tbody>
                         <tr class="inner-tr">
                               <td colspan="50"><div class="accordion" id="accordionExample">
+								<?php
+							    if(!empty($venddata))
+							    {
+									$serial = 1;
+									$vend_invoices = array();
+									$vend_quotes = array();
+									$vend_payments = array();
+									
+									foreach($venddata as $key=>$vnd)
+									{
+										if(array_key_exists($key, $invoice))
+										{
+											$vend_invoices = $invoice[$key];
+										}
+										if(array_key_exists($key, $quotes))
+										{
+											$vend_quotes = $quotes[$key];
+										}
+										if(array_key_exists($key, $payments))
+										{
+											$vend_payments = $payments[$key];
+										}
+								?>
                                   <div class="card z-depth-0 bordered">
                                   <div class="card-header accordion-header" id="headingOne">
                                       <h5 class="mb-0">
-                                      <div class="btn btn-link inner-colaps" data-toggle="collapse" data-target="#collapseOne"
-          aria-expanded="true" aria-controls="collapseOne">
+                                      <div class="btn btn-link inner-colaps" data-toggle="collapse" data-target="<?php echo "#".$serial; ?>"
+          aria-expanded="true" aria-controls="<?php echo $serial; ?>">
                                           <table width="100%">
+										  
                                           <tr>
-                                              <td width="10%" class="serial">1.</td>
-                                              <td width="10%"> #5469 </td>
-                                              <td width="30%"><span class="name">Louis Stanley</span></td>
-                                              <td width="15%"><span class="product">iMax</span></td>
-                                              <td width="15%"><span>Paid</span></td>
+                                              <td width="10%" class="serial"><?php echo $serial; ?></td>
+                                              <!--<td width="10%"> #5469 </td>-->
+                                              <td width="30%"><span class="name"><?php echo $vnd['name']; ?></span></td>
+                                              <!--<td width="15%"><span class="product">iMax</span></td>
+                                              <td width="15%"><span>Paid</span></td>-->
                                               <td width="20%"><button type="button" class="badge badge-complete" data-toggle="modal" data-target="#smallmodal">Complete</button>
                                               <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
                                                   <div class="modal-dialog modal-lg" role="document">
@@ -54,18 +78,20 @@
                                                     </div>
                                                       <div class="modal-footer">
                                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                      <button type="button" class="btn btn-primary">Confirm</button>
+                                                      <!--<button type="button" class="btn btn-primary">Confirm</button>-->
                                                     </div>
                                                     </div>
                                                 </div>
                                                 </div></td>
                                             </tr>
+											
+											
                                         </table>
                                         </div>
                                     </h5>
                                     </div>
 									
-                                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                  <div id="<?php echo $serial; ?>" class="collapse show" aria-labelledby="headingOne"
       data-parent="#accordionExample">
                                       <div class="card-body">
                                       <div class="open-details"> 
@@ -87,27 +113,46 @@
                                                   <table class="table">
                                                   <thead>
                                                       <tr>
-                                                      <th scope="col" width="70">Sl No.</th>
-                                                      <th scope="col">Upload Status</th>
-                                                      <th scope="col">Payment Status</th>
-                                                    </tr>
+														  <th scope="col" width="70">Sl No.</th>
+														  <th scope="col">Quotation Status</th>
+														  <th scope="col">Reject Reason</th>
+													  </tr>
                                                     </thead>
                                                   <tbody>
-                                                      <tr>
-                                                      <th scope="row">1</th>
-                                                      <td>Mark</td>
-                                                      <td>Otto</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">2</th>
-                                                      <td>Jacob</td>
-                                                      <td>Thornton</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">3</th>
-                                                      <td>Larry</td>
-                                                      <td>the Bird</td>
-                                                    </tr>
+												     <?php
+													 if(!empty($vend_quotes))
+													 {
+														 foreach($vend_quotes as $vq)
+														 {
+															 $status = '';
+															 $reject_cause = 'NA';
+															 if($vq['quote_status'] == 'A')
+															 {
+																 $status = 'Accepted';
+															 }
+															 elseif($vq['quote_status'] == 'P')
+															 {
+																 $status = 'Pending';
+															 }
+															 elseif($vq['quote_status'] == 'R')
+															 {
+																 $status = 'Rejected';
+															 }
+															 
+															 if(!empty($vq['reject_reason']))
+															 {
+																 $reject_cause = $vq['reject_reason'];
+															 }
+													 ?>
+														 <tr>
+														  <th scope="row"><?php echo $vq['si_no']; ?></th>
+														  <td><?php echo $status; ?></td>
+														  <td><?php echo $reject_cause; ?></td>
+														 </tr>
+													 <?php } ?>
+                                                     
+													 <?php } ?>
+                                                      
                                                     </tbody>
                                                 </table>
                                                 </div>
@@ -116,30 +161,62 @@
                                                   <thead>
                                                       <tr>
                                                       <th scope="col" width="70">Sl No.</th>
-                                                      <th scope="col">Invoice No</th>
-                                                      <th scope="col">Uploda Status</th>
-                                                      <th scope="col">Date</th>
+                                                      <!--<th scope="col">Invoice No</th>-->
+                                                      <th scope="col">Invoice Status</th>
+													  <th scope="col">Payment Status</th>
+													  <th scope="col">Reject Reason</th>
+                                                      <!--<th scope="col">Date</th>-->
                                                     </tr>
                                                     </thead>
                                                   <tbody>
+												  <?php 
+													if(!empty($vend_invoices)) 
+													{
+													   foreach($vend_invoices as $vi)
+													   {
+														   $status = '';
+														   $paid = '';
+														   $reject_cause = 'NA';
+														   if($vi['inv_status'] == 'A')
+														   {
+															 $status = 'Accepted';
+														   }
+														   elseif($vi['inv_status'] == 'P')
+														   {
+															 $status = 'Pending';
+														   }
+														   elseif($vi['inv_status'] == 'R')
+														   {
+															 $status = 'Rejected';
+														   }
+														   
+														   if($vi['paid'] == 1)
+														   {
+															   $paid = 'Paid';
+														   }
+														   else
+														   {
+															   $paid = 'Not Paid';
+														   }
+														 
+														   if(!empty($vi['reject_reason']))
+														   {
+															 $reject_cause = $vi['reject_reason'];
+														   }
+												  ?>
                                                       <tr>
-                                                      <th scope="row">1</th>
-                                                      <td>Mark a as </td>
-                                                      <td>Otto</td>
-                                                      <td>10/06/2019</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">2</th>
-                                                      <td>Jacob</td>
-                                                      <td>Thornton</td>
-                                                      <td>10/06/2019</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">3</th>
-                                                      <td>Larry</td>
-                                                      <td>the Bird</td>
-                                                      <td>10/06/2019</td>
-                                                    </tr>
+														  <th scope="row"><?php echo $vi['si_no']; ?></th>
+														  <td><?php echo $status; ?></td>
+														  <td><?php echo $paid; ?></td>
+														  <td><?php echo $reject_cause; ?></td>
+													  </tr>
+                                                   
+												  <?php 
+													   }
+												  }
+
+												  ?>
+                                                      
                                                     </tbody>
                                                 </table>
                                                 </div>
@@ -148,26 +225,27 @@
                                                   <thead>
                                                       <tr>
                                                       <th scope="col" width="70">Sl No.</th>
-                                                      <th scope="col">Payment date</th>
+                                                      <!--<th scope="col">Payment date</th>-->
                                                       <th scope="col">Payment Status</th>
                                                     </tr>
                                                     </thead>
                                                   <tbody>
+												  <?php
+												  if(!empty($vend_payments))
+												  {
+													  foreach($vend_payments as $vp)
+													  {
+												  ?>
                                                       <tr>
-                                                      <th scope="row">1</th>
-                                                      <td>Mark</td>
-                                                      <td>payment</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">2</th>
-                                                      <td>Jacob</td>
-                                                      <td>payment</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">3</th>
-                                                      <td>Larry</td>
-                                                      <td>payment</td>
-                                                    </tr>
+                                                      <th scope="row"><?php echo $vp['si_no']; ?></th>
+                                                      <!--<td>Mark</td>-->
+                                                      <td>Paid</td>
+                                                      </tr>
+                                                  <?php
+									                  }
+								                   }
+												  ?>
+                                                      
                                                     </tbody>
                                                 </table>
                                                 </div>
@@ -179,7 +257,18 @@
                                     </div>
                                     </div>
                                 </div>
-                                  <div class="card z-depth-0 bordered">
+								
+								
+								<?php 
+									$serial++;
+									}   
+								 } 
+								?>
+								
+								
+								
+								
+                                  <!--<div class="card z-depth-0 bordered">
                                   <div class="card-header accordion-header" id="headingTwo">
                                       <h5 class="mb-0">
                                       <div class="btn btn-link collapsed inner-colaps" data-toggle="collapse"
@@ -223,7 +312,7 @@
                                   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                       <div class="card-body">
                                       <div class="open-details"> 
-                                          <!-- start of custom-tab -->
+                                           
                                           <div class="card-body innre-card-body">
                                           <div class="custom-tab">
                                               <nav>
@@ -321,12 +410,13 @@
                                             </div>
                                             </div>
                                         </div>
-                                          <!-- end of custom-tab --> 
+                                          
                                         </div>
                                     </div>
                                     </div>
-                                </div>
-                                  <div class="card z-depth-0 bordered">
+                                </div>-->
+								
+                                  <!--<div class="card z-depth-0 bordered">
                                   <div class="card-header accordion-header" id="headingThree">
                                       <h5 class="mb-0">
                                       <div class="btn btn-link collapsed inner-colaps" data-toggle="collapse"
@@ -370,7 +460,7 @@
                                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                       <div class="card-body">
                                       <div class="open-details"> 
-                                          <!-- start of custom-tab -->
+                                          
                                           <div class="card-body innre-card-body">
                                           <div class="custom-tab">
                                               <nav>
@@ -468,13 +558,15 @@
                                             </div>
                                             </div>
                                         </div>
-                                          <!-- end of custom-tab --> 
+                                          
                                         </div>
                                     </div>
                                     </div>
+                                </div>-->
+								
                                 </div>
-                                </div></td>
-                            </tr>
+							</td>
+                          </tr>
                       </tbody>
                         </table>
                   </div>

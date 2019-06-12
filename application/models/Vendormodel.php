@@ -30,9 +30,9 @@ class Vendormodel extends CI_Model
 	{
 		$sql_vendor_list = "SELECT v.vendor_id, v.vendor_country, v.vendor_type_id, v.company_name, v.company_address, v.state_id, ";
 		$sql_vendor_list.=" v.city_name, v.company_name, vf.f_id, vf.vendor_id AS new_vendor_id, vf.f_name, ";
-		$sql_vendor_list.=" vf.f_status, vf.f_type, vf.paid_status, vf.f_reject_reason, vf.payment_due_date ";
+		$sql_vendor_list.=" vf.f_status, vf.f_type, vf.paid_status, vf.f_reject_reason, vf.payment_due_date, vf.created_at ";
 		$sql_vendor_list.=" FROM vendor_info AS v LEFT JOIN vendor_files AS vf ON v.vendor_id = vf.vendor_id ";
-		$sql_vendor_list.=" AND v.vendor_status = '1' AND vf.active_status = '1' ORDER BY v.vendor_id DESC, vf.f_id DESC";
+		$sql_vendor_list.=" AND v.vendor_status = '1' AND vf.active_status = '1'  ORDER BY v.vendor_id DESC, vf.f_type DESC";
 		
 		$query = $this->db->query($sql_vendor_list);
 		

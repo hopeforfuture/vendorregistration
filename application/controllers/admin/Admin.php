@@ -143,48 +143,119 @@ class Admin extends CI_Controller
 		$invdata = array();
 		$quotesdata = array();
 		$paymentdata = array();
-		//$this->data['var'] = 'VENDOR UPLOADS LIST';
-		//$this->data['fileslist'] = $this->inv->fetchallfiles(array(), array('field'=>'f_id', 'type'=>'DESC'));
-		//echo "<pre>";
-		//print_r($this->vendormodel->vendorlistdetails());
-		//echo "</pre>";
-		//die;
 		$vendor_keys = array();
 		$vendor_names = array();
+		$quote_count = 1;
+		$inv_count = 1;
+		$payment_count = 1;
+		$vendor_id = '';
+		$vendcount = 0;
 		
 		$vendorfiles = $this->vendormodel->vendorlistdetails();
 		
 		if(!empty($vendorfiles))
 		{
-			//$vendor_keys = array_column($vendorfiles, 'vendor_id');
-			//$vendor_names = array_column($vendorfiles, 'company_name');
+			$vendor_keys = array_column($vendorfiles, 'vendor_id');
+			$vendor_key_unique = array_unique($vendor_keys);
+			$vendor_names = array_column($vendorfiles, 'company_name');
+			$vendor_id = current($vendor_key_unique);
+			
+			/*echo "<pre>";
+			print_r($vendor_key_unique);
+			echo "</pre>";
+			die;*/
 			
 			foreach($vendorfiles as $vef)
 			{
-				if(!empty($vef['f_name']))
-				{
-					$vendor_id = $vef['vendor_id'];
+				
+					//$vendor_id = $vef['vendor_id'];
+					if($vendor_id != $vef['vendor_id'])
+					{
+						$inv_count = 1;
+						$payment_count = 1;
+						$quote_count = 1;
+						$vendor_id = next($vendor_key_unique);
+					}
+					
 					switch($vef['f_type'])
 					{
 						case 'I':
-							if($vef['paid_status'] == 1)
+						
+						 if($vendor_id == $vef['vendor_id'])
+						 {
+							if($vef['paid_status'] == 0)
 							{
-								$venddata[$vendor_id]['I']['P'][] = (
+								$invdata[$vendor_id][] = (
 									array(
-									   'u_status' => $vef['f_status']
+										'si_no' => $inv_count,
+										'fileno' => $vef['f_id'],
+										'vendor_id' => $vef['vendor_id'],
+										'type'  => $vef['f_type'],
+										'inv_status' => $vef['f_status'],
+										'paid' => $vef['paid_status'],
+										'reject_reason' => $vef['f_reject_reason'],
+										'duedate' => $vef['payment_due_date'],
+										'created' => $vef['created_at']
 									)
 								);
+								
+								$inv_count++;
 							}
-							else
+							elseif($vef['paid_status'] == 1)
 							{
+								$paymentdata[$vendor_id][] = (
+									array(
+										'si_no' => $payment_count,
+										'fileno' => $vef['f_id'],
+										'inv_status' => $vef['f_status'],
+										'vendor_id' => $vef['vendor_id'],
+										'type'  => $vef['f_type'],
+										'paid' => $vef['paid_status'],
+										//'reject_reason' => $vef['f_reject_reason'],
+										//'duedate' => $vef['payment_due_date'],
+										'created' => $vef['created_at']
+									)
+								);
+								
+								$payment_count++;
 							}
+						 }
 						break;
+						
+						case 'Q':
+							$quotesdata[$vendor_id][] = (
+									array(
+										'si_no' => $quote_count,
+										'fileno' => $vef['f_id'],
+										'vendor_id' => $vef['vendor_id'],
+										'type'  => $vef['f_type'],
+										'quote_status' => $vef['f_status'],
+										//'paid' => $vef['paid_status'],
+										'reject_reason' => $vef['f_reject_reason'],
+										//'duedate' => $vef['payment_due_date'],
+										'created' => $vef['created_at']
+									)
+							);
+								
+								$quote_count++;
+						break;
+						
+						
 					}
 				}
-			}
+			
 		}
 		echo "<pre>";
-		print_r($venddata);
+		print_r($invdata);
+		echo "</pre>";
+		echo "-----";
+		echo "<pre>";
+		print_r($paymentdata);
+		echo "</pre>";
+		echo "-----";
+		echo "<pre>";
+		print_r($quotesdata);
+		echo "</pre>";
 		die;
 		$this->load->view('admin/home', $this->data);
 	}

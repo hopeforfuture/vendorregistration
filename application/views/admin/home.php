@@ -74,14 +74,6 @@
 											$class = '';
 										}
 										
-										/*if($key == 6)
-										{
-											echo "<pre>";
-											print_r($vend_invoices);
-											echo "</pre>";
-											die;
-										}*/
-										
 										$parent_div_id = "#collapse".$serial;
 										$child_div_id = "collapse".$serial;
 										$heading = "heading".$serial;

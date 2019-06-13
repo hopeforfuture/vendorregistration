@@ -247,57 +247,6 @@ class Admin extends CI_Controller
 		$this->data['invoice'] = $invdata;
 		$this->data['payments'] = $paymentdata;
 		$this->data['quotes'] = $quotesdata;
-		
-		/*if(array_key_exists(29, $this->data['invoice']))
-		{
-			echo "<pre>";
-			print_r($this->data['invoice'][29]);
-			echo "</pre>";
-		}
-		else
-		{
-			echo "No record exists.";
-		}
-		
-		if(array_key_exists(29, $this->data['payments']))
-		{
-			echo "<pre>";
-			print_r($this->data['payments'][29]);
-			echo "</pre>";
-		}
-		else
-		{
-			echo "<br/>No record exists.";
-		}
-		
-		if(array_key_exists(29, $this->data['quotes']))
-		{
-			echo "<pre>";
-			print_r($this->data['quotes'][29]);
-			echo "</pre>";
-		}
-		else
-		{
-			echo "<br/>No record exists.";
-		}
-		
-		
-		echo "<pre>";
-		print_r($this->data['invoice']);
-		echo "</pre>";
-		
-		echo "<pre>";
-		print_r($this->data['payments']);
-		echo "</pre>";
-		
-		echo "<pre>";
-		print_r($this->data['quotes']);
-		echo "</pre>";
-		
-		echo "<pre>";
-		print_r($this->data['quotes'][10]);
-		echo "</pre>";
-		die;*/
 		$this->load->view('admin/home', $this->data);
 	}
 

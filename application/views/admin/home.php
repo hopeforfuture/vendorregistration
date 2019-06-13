@@ -139,16 +139,16 @@
                                           <div class="custom-tab">
                                               <nav>
 												  <div class="nav nav-tabs" id="nav-tab" role="tablist"> 
-												  <a class="nav-item nav-link active show" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="true">Quotes
+												  <a class="nav-item nav-link active show" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home<?php echo $serial; ?>" role="tab" aria-controls="custom-nav-home" aria-selected="true">Quotes
 												  </a> 
-												  <a class="nav-item nav-link " id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="false">Invoice
+												  <a class="nav-item nav-link " id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile<?php echo $serial; ?>" role="tab" aria-controls="custom-nav-profile" aria-selected="false">Invoice
 												  </a> 
-												  <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment
+												  <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact<?php echo $serial; ?>" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment
 												  </a> 
 												  </div>
                                               </nav>
                                               <div class="tab-content" id="nav-tabContent">
-                                              <div class="tab-pane fade active show" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
+                                              <div class="tab-pane fade active show" id="custom-nav-home<?php echo $serial; ?>" role="tabpanel" aria-labelledby="custom-nav-home-tab">
                                                   <table class="table">
                                                   <thead>
                                                       <tr>
@@ -202,7 +202,7 @@
                                                     </tbody>
                                                 </table>
                                                 </div>
-                                              <div class="tab-pane fade" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
+                                              <div class="tab-pane fade" id="custom-nav-profile<?php echo $serial; ?>" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
                                                   <table class="table">
                                                   <thead>
                                                       <tr>
@@ -271,7 +271,7 @@
                                                     </tbody>
                                                 </table>
                                                 </div>
-                                              <div class="tab-pane fade" id="custom-nav-contact" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
+                                              <div class="tab-pane fade" id="custom-nav-contact<?php echo $serial; ?>" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
                                                   <table class="table">
                                                   <thead>
                                                       <tr>

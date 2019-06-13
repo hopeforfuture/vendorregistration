@@ -194,7 +194,7 @@ class Admin extends CI_Controller
 										'type'  => $vef['f_type'],
 										'inv_status' => $vef['f_status'],
 										'paid' => $vef['paid_status'],
-										'reject_reason' => $vef['f_reject_reason'],
+										'reject_reason' => ucwords($vef['f_reject_reason']),
 										'duedate' => $vef['payment_due_date'],
 										'created' => $vef['created_at']
 									)
@@ -229,7 +229,7 @@ class Admin extends CI_Controller
 										'vendor_id' => $vef['vendor_id'],
 										'type'  => $vef['f_type'],
 										'quote_status' => $vef['f_status'],
-										'reject_reason' => $vef['f_reject_reason'],
+										'reject_reason' => ucwords($vef['f_reject_reason']),
 										'created' => $vef['created_at']
 									)
 							);

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2019 at 08:03 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.4
+-- Generation Time: Jun 13, 2019 at 10:27 AM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -297,7 +297,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`u_id`, `u_name`, `u_email`, `u_pswd`, `u_type`, `u_status`, `last_login`) VALUES
-(1, 'Vendor Admin', 'admin@expressgrp.com', '0192023a7bbd73250516f069df18b500', '1', '1', 1559043697);
+(1, 'Vendor Admin', 'admin@expressgrp.com', '0192023a7bbd73250516f069df18b500', '1', '1', 1560404799);
 
 -- --------------------------------------------------------
 
@@ -319,7 +319,9 @@ CREATE TABLE `vendor_contacts` (
 
 INSERT INTO `vendor_contacts` (`id`, `vendor_id`, `contact_id`, `created_at`, `updated_at`) VALUES
 (89, 29, 4, 1558329189, '2019-05-20 05:13:09'),
-(90, 7, 4, 1558329189, '2019-05-20 05:13:09');
+(90, 7, 4, 1558329189, '2019-05-20 05:13:09'),
+(91, 16, 8, 1559630885, '2019-06-04 06:48:05'),
+(92, 11, 8, 1559630885, '2019-06-04 06:48:05');
 
 -- --------------------------------------------------------
 
@@ -583,7 +585,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vendor_contacts`
 --
 ALTER TABLE `vendor_contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `vendor_files`

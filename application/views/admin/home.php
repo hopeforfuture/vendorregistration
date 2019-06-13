@@ -44,13 +44,25 @@
 										{
 											$vend_invoices = $invoice[$key];
 										}
+										else
+										{
+											$vend_invoices = array();
+										}
 										if(array_key_exists($key, $quotes))
 										{
 											$vend_quotes = $quotes[$key];
 										}
+										else
+										{
+											$vend_quotes = array();
+										}
 										if(array_key_exists($key, $payments))
 										{
 											$vend_payments = $payments[$key];
+										}
+										else
+										{
+											$vend_payments = array();
 										}
 										
 										if($serial == 1)
@@ -62,6 +74,13 @@
 											$class = '';
 										}
 										
+										if($key == 6)
+										{
+											echo "<pre>";
+											print_r($vend_invoices);
+											echo "</pre>";
+											die;
+										}
 										
 										$parent_div_id = "#collapse".$serial;
 										$child_div_id = "collapse".$serial;
@@ -297,6 +316,7 @@
 								
 								
 								<?php 
+									
 									$serial++;
 									}   
 								 } 

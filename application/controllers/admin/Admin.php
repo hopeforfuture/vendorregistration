@@ -247,6 +247,24 @@ class Admin extends CI_Controller
 		$this->data['invoice'] = $invdata;
 		$this->data['payments'] = $paymentdata;
 		$this->data['quotes'] = $quotesdata;
+		
+		
+		/*echo "<pre>";
+		print_r($this->data['invoice']);
+		echo "</pre>";
+		
+		echo "<pre>";
+		print_r($this->data['payments']);
+		echo "</pre>";
+		
+		echo "<pre>";
+		print_r($this->data['quotes']);
+		echo "</pre>";
+		
+		echo "<pre>";
+		print_r($this->data['quotes'][10]);
+		echo "</pre>";
+		die;*/
 		$this->load->view('admin/home', $this->data);
 	}
 

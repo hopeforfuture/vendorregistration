@@ -32,6 +32,11 @@
 									$vend_invoices = array();
 									$vend_quotes = array();
 									$vend_payments = array();
+									$parent_div_id = '';
+									$child_div_id = '';
+									$heading = '';
+									
+									
 									
 									foreach($venddata as $key=>$vnd)
 									{
@@ -47,12 +52,27 @@
 										{
 											$vend_payments = $payments[$key];
 										}
+										
+										if($serial == 1)
+										{
+											$class = "show";
+										}
+										else
+										{
+											$class = '';
+										}
+										
+										
+										$parent_div_id = "#collapse".$serial;
+										$child_div_id = "collapse".$serial;
+										$heading = "heading".$serial;
+										
 								?>
                                   <div class="card z-depth-0 bordered">
-                                  <div class="card-header accordion-header" id="headingOne">
+                                  <div class="card-header accordion-header" id="<?php echo $heading; ?>">
                                       <h5 class="mb-0">
-                                      <div class="btn btn-link inner-colaps" data-toggle="collapse" data-target="<?php echo "#".$serial; ?>"
-          aria-expanded="true" aria-controls="<?php echo $serial; ?>">
+                                      <div class="btn btn-link inner-colaps" data-toggle="collapse" data-target="<?php echo $parent_div_id; ?>"
+          aria-expanded="true" aria-controls="<?php echo $child_div_id; ?>">
                                           <table width="100%">
 										  
                                           <tr>
@@ -91,7 +111,7 @@
                                     </h5>
                                     </div>
 									
-                                  <div id="<?php echo $serial; ?>" class="collapse show" aria-labelledby="headingOne"
+                                  <div id="<?php echo $child_div_id; ?>" class="collapse <?php if(!empty($class)) {echo $class;} ?>" aria-labelledby="<?php echo $heading; ?>"
       data-parent="#accordionExample">
                                       <div class="card-body">
                                       <div class="open-details"> 
@@ -100,16 +120,16 @@
                                           <div class="custom-tab">
                                               <nav>
 												  <div class="nav nav-tabs" id="nav-tab" role="tablist"> 
-												  <a class="nav-item nav-link" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="false">Quotes
+												  <a class="nav-item nav-link active show" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="true">Quotes
 												  </a> 
-												  <a class="nav-item nav-link active show" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="true">Invoice
+												  <a class="nav-item nav-link " id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="false">Invoice
 												  </a> 
 												  <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment
 												  </a> 
 												  </div>
                                               </nav>
                                               <div class="tab-content" id="nav-tabContent">
-                                              <div class="tab-pane fade" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
+                                              <div class="tab-pane fade active show" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
                                                   <table class="table">
                                                   <thead>
                                                       <tr>
@@ -151,12 +171,19 @@
 														 </tr>
 													 <?php } ?>
                                                      
-													 <?php } ?>
+													 <?php 
+													 } 
+													 else
+													 {
+														 echo "<tr><td colspan='3' align='center'>"."No data found."."</td></tr>";
+													 }
+													 
+													 ?>
                                                       
                                                     </tbody>
                                                 </table>
                                                 </div>
-                                              <div class="tab-pane fade active show" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
+                                              <div class="tab-pane fade" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
                                                   <table class="table">
                                                   <thead>
                                                       <tr>
@@ -214,6 +241,11 @@
 												  <?php 
 													   }
 												  }
+												  
+												  else
+													 {
+														 echo "<tr><td colspan='3' align='center'>"."No data found."."</td></tr>";
+													 }
 
 												  ?>
                                                       
@@ -244,6 +276,11 @@
                                                   <?php
 									                  }
 								                   }
+												   
+												   else
+													 {
+														 echo "<tr><td colspan='3' align='left'>"."No data found."."</td></tr>";
+													 }
 												  ?>
                                                       
                                                     </tbody>
@@ -267,302 +304,6 @@
 								
 								
 								
-								
-                                  <!--<div class="card z-depth-0 bordered">
-                                  <div class="card-header accordion-header" id="headingTwo">
-                                      <h5 class="mb-0">
-                                      <div class="btn btn-link collapsed inner-colaps" data-toggle="collapse"
-          data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                          <table width="100%">
-                                          <tbody>
-                                              <tr>
-                                              <td width="10%" class="serial">1.</td>
-                                              <td width="10%"> #5469 </td>
-                                              <td width="30%"><span class="name">Louis Stanley</span></td>
-                                              <td width="15%"><span class="product">iMax</span></td>
-                                              <td width="15%"><span>Paid</span></td>
-                                              <td width="20%"><button type="button" class="badge badge-complete" data-toggle="modal" data-target="#smallmodal">Complete</button>
-                                                  <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-                                                  <div class="modal-dialog modal-lg" role="document">
-                                                      <div class="modal-content">
-                                                      <div class="modal-header">
-                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-                                                        </div>
-                                                      <div class="modal-body">
-                                                          <ul class="list-group list-group-flush text-left">
-                                                          <li class="list-group-item"> <strong>Name:</strong> <span>Ranja paul</span> </li>
-                                                          <li class="list-group-item"> <strong>Company:</strong> <span>Farm Need</span> </li>
-                                                          <li class="list-group-item"> <strong>Address:</strong> <span>Shop No A, Shantiniketan Complex, Near Newtown Bridge, DLF 1, New Town, Kolkata</span> </li>
-                                                          <li class="list-group-item"> <strong>Details:</strong> <span>Restaurants in Kolkata, Kolkata Restaurants, New Town restaurants, Best New Town restaurants, Rajarhat restaurants, Casual Dining in Kolkata, Casual Dining near me, Casual Dining in Rajarhat.</span> </li>
-                                                        </ul>
-                                                        </div>
-                                                      <div class="modal-footer">
-                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                          <button type="button" class="btn btn-primary">Confirm</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        </div>
-                                    </h5>
-                                    </div>
-                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                      <div class="card-body">
-                                      <div class="open-details"> 
-                                           
-                                          <div class="card-body innre-card-body">
-                                          <div class="custom-tab">
-                                              <nav>
-                                              <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a class="nav-item nav-link" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="false">Quotes</a> <a class="nav-item nav-link active show" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="true">Invoice</a> <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment</a> </div>
-                                            </nav>
-                                              <div class="tab-content" id="nav-tabContent">
-                                              <div class="tab-pane fade" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
-                                                  <table class="table">
-                                                  <thead>
-                                                      <tr>
-                                                      <th scope="col" width="70">Sl No.</th>
-                                                      <th scope="col">Upload Status</th>
-                                                      <th scope="col">Payment Status</th>
-                                                    </tr>
-                                                    </thead>
-                                                  <tbody>
-                                                      <tr>
-                                                      <th scope="row">1</th>
-                                                      <td>Mark</td>
-                                                      <td>Otto</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">2</th>
-                                                      <td>Jacob</td>
-                                                      <td>Thornton</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">3</th>
-                                                      <td>Larry</td>
-                                                      <td>the Bird</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                </div>
-                                              <div class="tab-pane fade active show" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
-                                                  <table class="table">
-                                                  <thead>
-                                                      <tr>
-                                                      <th scope="col" width="70">Sl No.</th>
-                                                      <th scope="col">Invoice No</th>
-                                                      <th scope="col">Uploda Status</th>
-                                                      <th scope="col">Date</th>
-                                                    </tr>
-                                                    </thead>
-                                                  <tbody>
-                                                      <tr>
-                                                      <th scope="row">1</th>
-                                                      <td>Mark a as </td>
-                                                      <td>Otto</td>
-                                                      <td>10/06/2019</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">2</th>
-                                                      <td>Jacob</td>
-                                                      <td>Thornton</td>
-                                                      <td>10/06/2019</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">3</th>
-                                                      <td>Larry</td>
-                                                      <td>the Bird</td>
-                                                      <td>10/06/2019</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                </div>
-                                              <div class="tab-pane fade" id="custom-nav-contact" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
-                                                  <table class="table">
-                                                  <thead>
-                                                      <tr>
-                                                      <th scope="col" width="70">Sl No.</th>
-                                                      <th scope="col">Payment date</th>
-                                                      <th scope="col">Payment Status</th>
-                                                    </tr>
-                                                    </thead>
-                                                  <tbody>
-                                                      <tr>
-                                                      <th scope="row">1</th>
-                                                      <td>Mark</td>
-                                                      <td>payment</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">2</th>
-                                                      <td>Jacob</td>
-                                                      <td>payment</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">3</th>
-                                                      <td>Larry</td>
-                                                      <td>payment</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                          
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>-->
-								
-                                  <!--<div class="card z-depth-0 bordered">
-                                  <div class="card-header accordion-header" id="headingThree">
-                                      <h5 class="mb-0">
-                                      <div class="btn btn-link collapsed inner-colaps" data-toggle="collapse"
-          data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                          <table width="100%">
-                                          <tbody>
-                                              <tr>
-                                              <td width="10%" class="serial">1.</td>
-                                              <td width="10%"> #5469 </td>
-                                              <td width="30%"><span class="name">Louis Stanley</span></td>
-                                              <td width="15%"><span class="product">iMax</span></td>
-                                              <td width="15%"><span>Paid</span></td>
-                                              <td width="20%"><button type="button" class="badge badge-complete" data-toggle="modal" data-target="#smallmodal">Complete</button>
-                                                  <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-                                                  <div class="modal-dialog modal-lg" role="document">
-                                                      <div class="modal-content">
-                                                      <div class="modal-header">
-                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-                                                        </div>
-                                                      <div class="modal-body">
-                                                          <ul class="list-group list-group-flush text-left">
-                                                          <li class="list-group-item"> <strong>Name:</strong> <span>Ranja paul</span> </li>
-                                                          <li class="list-group-item"> <strong>Company:</strong> <span>Farm Need</span> </li>
-                                                          <li class="list-group-item"> <strong>Address:</strong> <span>Shop No A, Shantiniketan Complex, Near Newtown Bridge, DLF 1, New Town, Kolkata</span> </li>
-                                                          <li class="list-group-item"> <strong>Details:</strong> <span>Restaurants in Kolkata, Kolkata Restaurants, New Town restaurants, Best New Town restaurants, Rajarhat restaurants, Casual Dining in Kolkata, Casual Dining near me, Casual Dining in Rajarhat.</span> </li>
-                                                        </ul>
-                                                        </div>
-                                                      <div class="modal-footer">
-                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                          <button type="button" class="btn btn-primary">Confirm</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        </div>
-                                    </h5>
-                                    </div>
-                                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                      <div class="card-body">
-                                      <div class="open-details"> 
-                                          
-                                          <div class="card-body innre-card-body">
-                                          <div class="custom-tab">
-                                              <nav>
-                                              <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a class="nav-item nav-link" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="false">Quotes</a> <a class="nav-item nav-link active show" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="true">Invoice</a> <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Payment</a> </div>
-                                            </nav>
-                                              <div class="tab-content" id="nav-tabContent">
-                                              <div class="tab-pane fade" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
-                                                  <table class="table">
-                                                  <thead>
-                                                      <tr>
-                                                      <th scope="col" width="70">Sl No.</th>
-                                                      <th scope="col">Upload Status</th>
-                                                      <th scope="col">Payment Status</th>
-                                                    </tr>
-                                                    </thead>
-                                                  <tbody>
-                                                      <tr>
-                                                      <th scope="row">1</th>
-                                                      <td>Mark</td>
-                                                      <td>Otto</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">2</th>
-                                                      <td>Jacob</td>
-                                                      <td>Thornton</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">3</th>
-                                                      <td>Larry</td>
-                                                      <td>the Bird</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                </div>
-                                              <div class="tab-pane fade active show" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
-                                                  <table class="table">
-                                                  <thead>
-                                                      <tr>
-                                                      <th scope="col" width="70">Sl No.</th>
-                                                      <th scope="col">Invoice No</th>
-                                                      <th scope="col">Uploda Status</th>
-                                                      <th scope="col">Date</th>
-                                                    </tr>
-                                                    </thead>
-                                                  <tbody>
-                                                      <tr>
-                                                      <th scope="row">1</th>
-                                                      <td>Mark a as </td>
-                                                      <td>Otto</td>
-                                                      <td>10/06/2019</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">2</th>
-                                                      <td>Jacob</td>
-                                                      <td>Thornton</td>
-                                                      <td>10/06/2019</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">3</th>
-                                                      <td>Larry</td>
-                                                      <td>the Bird</td>
-                                                      <td>10/06/2019</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                </div>
-                                              <div class="tab-pane fade" id="custom-nav-contact" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
-                                                  <table class="table">
-                                                  <thead>
-                                                      <tr>
-                                                      <th scope="col" width="70">Sl No.</th>
-                                                      <th scope="col">Payment date</th>
-                                                      <th scope="col">Payment Status</th>
-                                                    </tr>
-                                                    </thead>
-                                                  <tbody>
-                                                      <tr>
-                                                      <th scope="row">1</th>
-                                                      <td>Mark</td>
-                                                      <td>payment</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">2</th>
-                                                      <td>Jacob</td>
-                                                      <td>payment</td>
-                                                    </tr>
-                                                      <tr>
-                                                      <th scope="row">3</th>
-                                                      <td>Larry</td>
-                                                      <td>payment</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                          
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>-->
 								
                                 </div>
 							</td>
